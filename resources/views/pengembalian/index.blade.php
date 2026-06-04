@@ -1,17 +1,18 @@
 @extends('layouts.app')
-@section('title', 'Pengembalian Buku')
+@section('title', 'Book Returns')
 @section('content')
 <div class="data">
-    <h2>Daftar Pengembalian Buku</h2>
+    
+    <h2>Returned Books</h2>
     <div class="table">
         <table>
             <thead>
                 <tr>
                     <td>No</td>
-                    <td>ID Peminjaman</td>
-                    <td>Tanggal Dikembalikan</td>
-                    <td>Denda</td>
-                    <td>Petugas</td>
+                    <td>Loan ID</td>
+                    <td>Return Date</td>
+                    <td>Fine</td>
+                    <td>Staff</td>
                 </tr>
             </thead>
             <tbody>

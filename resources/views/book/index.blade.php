@@ -1,15 +1,15 @@
 @extends('layouts.app')
-@section('title', 'Daftar Buku')
+@section('title', 'Book List')
 @section('content')
 <div class="data">
    <div class="header">
-        <h2>Daftar Buku</h2>
-        <a href="{{ route('book.create') }}" class="btn-tambah">+ Tambah Buku</a>
+        <h2>Book List</h2>
+        <a href="{{ route('book.create') }}" class="btn-tambah">+ Add Book</a>
     </div>
     <div class="search-group">
         <form method="GET" action="{{route('book.index')}}">
-            <input type="text" name="search" class="search"  placeholder="Cari" value="{{ request('search') }}">
-            <button type="submit" class="btn-search">🔍 Cari</button>
+            <input type="text" name="search" class="search"  placeholder="Search" value="{{ request('search') }}">
+            <button type="submit" class="btn-search">🔍 Search</button>
         </form>
     </div>
     <div class="table">
@@ -18,13 +18,13 @@
                 <tr>
                     <td>No</td>
                     <td>ISBN</td>
-                    <td>Judul</td>
-                    <td>Penerbit</td>
-                    <td>Tahun Terbit</td>
-                    <td>Pengarang</td>
-                    <td>Nama Rak</td>
-                    <td>Jumlah</td>
-                    <td>Aksi</td>
+                    <td>Title</td>
+                    <td>Publisher</td>
+                    <td>Publication Year</td>
+                    <td>Author</td>
+                    <td>Shelf Name</td>
+                    <td>Quantity</td>
+                    <td>Actions</td>
                 </tr>
             </thead>
             <tbody>
@@ -39,11 +39,11 @@
                             <td>{{$book->rak->nama_rak ?? $book->rak_id}}</td>
                             <td>{{$book->jumlah}}</td>
                             <td class='table-action'>
-                                    <a class='btn-edit' href="{{ route('book.edit', $book->id) }}" text-decoration:none;'>Edit</a> 
+                                    <a class='btn-edit' href="{{ route('book.edit', $book->id) }}" text-decoration:none;'><i class="fas fa-edit mr-1"></i></a> 
                                     <form action="{{ route('book.destroy', $book->id) }}" method="POST" style="display:inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus data ini?');">Hapus</button>
+                                    <button type="submit" class="btn-hapus" onclick="return confirm('Are you sure you want to delete this record?');"><i class="fas fa-trash mr-1"></i></button>
                                 </form>
                                 </td>
                         </tr>

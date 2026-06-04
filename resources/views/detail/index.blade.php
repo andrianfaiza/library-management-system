@@ -1,18 +1,21 @@
 @extends('layouts.app')
-@section('title', 'Detail Peminjaman')
+@section('title', 'Loan Details')
 @section('content')
 <div class="data">
-    <h2>Daftar Detail Peminjaman Buku</h2>
+    <a href="{{ url()->previous() }}" class="return">
+        <i class="fas fa-arrow-left mr-2"></i> Return
+    </a>
+    <h2>Book Loan Details</h2>
 
     <div class="table">
         <table>
             <thead>
                 <tr>
                     <td>No</td>
-                    <td>ID Peminjaman</td>
-                    <td>ID Buku</td>
-                    <td>Jumlah</td>
-                    <td>Aksi</td>
+                    <td>Loan ID</td>
+                    <td>Book</td>
+                    <td>Quantity</td>
+                    <td>Actions</td>
                 </tr>
             </thead>
             <tbody>
@@ -24,11 +27,11 @@
                             <td>{{$details->jumlah}}</td>
                             <td class='table-action'>
                                 @if(($details->status ?? 'dipinjam') === 'dikembalikan')
-                                    <span class="badge">Sudah Dikembalikan</span>
+                                    <span class="badge">Returned</span>
                                 @else
                                     <form action="{{ route('detail.kembalikan', $details->id) }}" method="POST" style="display:inline">
                                         @csrf
-                                        <button type="submit" class="btn-dikembalikan" onclick="return confirm('Kembalikan buku ini?')">Kembalikan</button>
+                                        <button type="submit" class="btn-dikembalikan" onclick="return confirm('Return this book?')">Return</button>
                                     </form>
                                 @endif
                             </td>

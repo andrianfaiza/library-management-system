@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Edit Book</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
     <div class="container1">
         <div class="form-container">
-            <h2>Tambah Data Buku</h2>
+            <h2>Edit Book</h2>
             <form action="{{ route('book.update', $book->id) }}" method="POST">
                 @csrf
                 @method('PUT')
