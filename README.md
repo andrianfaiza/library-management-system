@@ -11,8 +11,9 @@ All features are protected and can only be accessed after login.
 
 1. Clone the project
 
-git clone https://github.com/username/app-perpus.git 
-cd app-perpus
+```git clone https://github.com/andrianfaiza/library-management-system.git```
+
+```cd app-perpus```
 
 2. Install dependencies
 
