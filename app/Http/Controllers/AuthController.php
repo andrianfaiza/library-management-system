@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\Book;
-use App\Models\Siswa;
-use App\Models\Peminjaman;
+use App\Models\Student;
+use App\Models\Rack;
+use App\Models\Loan;
 
 class AuthController extends Controller
 {
@@ -25,22 +26,38 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
+        return back()->withErrors(['email' => 'Invalid email or password.'])->withInput();
     }
 
     public function dashboard()
     {
         $totalBooks = Book::count();
-        $totalSiswa = Siswa::count();
-        $totalPinjam = Peminjaman::count();
+        $totalStudents = Student::count();
+        $totalLoans = Loan::count();
         return view('dashboard.index', compact(
-        'totalBooks',
-        'totalSiswa',
-        'totalPinjam'
+            'totalBooks',
+            'totalStudents',
+            'totalLoans'
         ));
+    }
+
+    public function userDashboard(Request $request)
+    {
+        $search = $request->search;
+
+        $books = Book::with('rack')
+            ->when($search, function ($query, $search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%")
+                    ->orWhere('isbn', 'like', "%{$search}%");
+            })->get();
+
+        $racks = Rack::all();
+
+        return view('user.index', compact('books', 'racks', 'search'));
     }
 
     public function logout(Request $request)
