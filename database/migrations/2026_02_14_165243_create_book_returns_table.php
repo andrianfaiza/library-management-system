@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rak', function (Blueprint $table) {
+        Schema::create('book_returns', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_rak');
-            $table->string('lokasi');
-            $table->string('kapasitas');
+            $table->foreignId('loan_id')->constrained('loans')->onDelete('cascade');
+            $table->date('return_date');
+            $table->decimal('fine', 15, 2);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rak');
+        Schema::dropIfExists('book_returns');
     }
 };
