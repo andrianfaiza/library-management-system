@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Detail extends Model
+class LoanDetail extends Model
 {
-    protected $table = 'detail';
+    protected $table = 'loan_details';
     protected $fillable = [
-        'peminjaman_id',
+        'loan_id',
         'book_id',
-        'jumlah',
+        'quantity',
         'status',
     ];
 
-    public function peminjaman(): BelongsTo
+    public function loan(): BelongsTo
     {
-        return $this->belongsTo(Peminjaman::class);
+        return $this->belongsTo(Loan::class, 'loan_id');
     }
 
     public function book(): BelongsTo
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(Book::class, 'book_id');
     }
 }

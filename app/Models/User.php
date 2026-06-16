@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -46,12 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function pengembalian(): HasMany
+    public function returns(): HasMany
     {
-        return $this->hasMany(Pengembalian::class);
+        return $this->hasMany(BookReturn::class);
     }
-    public function peminjaman(): HasMany
+    public function loans(): HasMany
     {
-        return $this->hasMany(Peminjaman::class);
+        return $this->hasMany(Loan::class);
     }
 }

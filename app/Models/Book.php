@@ -8,23 +8,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Book extends Model
 {
-    protected $table = 'book';
+    protected $table = 'books';
     protected $fillable = [
         'isbn',
-        'judul_buku',
-        'penerbit',
-        'tahun_terbit',
-        'pengarang',
-        'rak_id',
-        'jumlah',
+        'title',
+        'publisher',
+        'publication_year',
+        'author',
+        'rack_id',
+        'quantity',
     ];
 
-    public function rak(): BelongsTo
+    public function rack(): BelongsTo
     {
-        return $this->belongsTo(Rak::class, 'rak_id');
+        return $this->belongsTo(Rack::class, 'rack_id');
     }
-    public function detail(): HasMany
+    public function details(): HasMany
     {
-        return $this->hasMany(Detail::class);
+        return $this->hasMany(LoanDetail::class, 'book_id');
     }
 }
