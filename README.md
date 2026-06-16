@@ -25,7 +25,11 @@ Password = 'password'
 
 ```git clone https://github.com/andrianfaiza/library-management-system.git```
 
+<<<<<<< HEAD
 ```cd library-management-system```
+=======
+```cd app-perpus```
+>>>>>>> e18ac7e39a8184160ef58dbdcd8002b372b3e9df
 
 2. Install dependencies
 
