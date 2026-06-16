@@ -4,7 +4,9 @@
 <div class="data">
    <div class="header">
         <h2>Book List</h2>
-        <a href="{{ route('book.create') }}" class="btn-tambah">+ Add Book</a>
+        @if(auth()->user()->hasRole('admin'))
+            <a href="{{ route('book.create') }}" class="btn-tambah">+ Add Book</a>
+        @endif
     </div>
     <div class="search-group">
         <form method="GET" action="{{route('book.index')}}">
@@ -24,28 +26,32 @@
                     <td>Author</td>
                     <td>Shelf Name</td>
                     <td>Quantity</td>
+                    @if(auth()->user()->hasRole('admin'))
                     <td>Actions</td>
+                    @endif
                 </tr>
             </thead>
             <tbody>
-                 @foreach ($book as $book)
+                 @foreach ($books as $book)
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$book->isbn}}</td>
-                            <td>{{$book->judul_buku}}</td>
-                            <td>{{$book->penerbit}}</td>
-                            <td>{{$book->tahun_terbit}}</td>
-                            <td>{{$book->pengarang}}</td>
-                            <td>{{$book->rak->nama_rak ?? $book->rak_id}}</td>
-                            <td>{{$book->jumlah}}</td>
-                            <td class='table-action'>
-                                    <a class='btn-edit' href="{{ route('book.edit', $book->id) }}" text-decoration:none;'><i class="fas fa-edit mr-1"></i></a> 
-                                    <form action="{{ route('book.destroy', $book->id) }}" method="POST" style="display:inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-hapus" onclick="return confirm('Are you sure you want to delete this record?');"><i class="fas fa-trash mr-1"></i></button>
-                                </form>
+                            <td>{{$book->title}}</td>
+                            <td>{{$book->publisher}}</td>
+                            <td>{{$book->publication_year}}</td>
+                            <td>{{$book->author}}</td>
+                            <td>{{$book->rack->name ?? $book->rack_id}}</td>
+                            <td>{{$book->quantity}}</td>
+                            @if(auth()->user()->hasRole('admin'))
+                                <td class='table-action'>
+                                        <a class='btn-edit' href="{{ route('book.edit', $book->id) }}" text-decoration:none;'><i class="fas fa-edit mr-1"></i></a> 
+                                        <form action="{{ route('book.destroy', $book->id) }}" method="POST" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-hapus" onclick="return confirm('Are you sure you want to delete this record?');"><i class="fas fa-trash mr-1"></i></button>
+                                    </form>
                                 </td>
+                            @endif
                         </tr>
                     @endforeach
             </tbody>

@@ -1,20 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Loan</title>
+    <title>Edit Shelf</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
     <div class="container1">
         <div class="form-container">
-            <h2>Add Loan</h2>
-            <form action="{{ route('peminjaman.store') }}" method="POST">
+            <h2>Edit Shelf</h2>
+            <form action="{{ route('rack.update', $rack->id) }}" method="POST">
                 @csrf
-                
-                @include('peminjaman._form')
+                @method('PUT')
+
+                @include('rack._form')
+
             </form>
         </div>
     </div>

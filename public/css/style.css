@@ -240,7 +240,6 @@ body {
     min-height: calc(100vh - 70px);
 }
 
-
 .data {
     padding: 40px;
     margin-top: 3%;
@@ -248,6 +247,10 @@ body {
     min-height: calc(100vh - 70px);
     width: 80%;
     margin-left: 20%;
+}
+
+.full {
+    width: 100%;
 }
 
 /* Page header section */

@@ -17,18 +17,18 @@
         </div>
     </div>
     
-    <div class="card2" onclick="window.location='{{ route('siswa.index') }}'">
+    <div class="card2" onclick="window.location='{{ route('student.index') }}'">
         <i class="fas fa-user-graduate"></i>
         <div class="text">
-            <span>{{ $totalSiswa }}</span>
+            <span>{{ $totalStudents }}</span>
             <p>Active Students</p>
         </div>
     </div>
     
-    <div class="card3" onclick="window.location='{{ route('peminjaman.index') }}'">
+    <div class="card3" onclick="window.location='{{ route('loan.index') }}'">
         <i class="fas fa-book-reader"></i>
         <div class="text">
-            <span>{{ $totalPinjam }}</span>
+            <span>{{ $totalLoans }}</span>
             <p>Active Loans</p>
         </div>
     </div>

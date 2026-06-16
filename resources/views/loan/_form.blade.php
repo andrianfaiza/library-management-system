@@ -1,41 +1,21 @@
-<div class="form-group">
+﻿<div class="form-group">
     <div>
-        <label for="nis">Student <span>*</span></label>
-        <select name="nis">
+        <label for="student_id">Student <span>*</span></label>
+        <select name="student_id">
             <option value="">-- Select Student --</option>
-            @foreach($siswa as $siswas)
-                <option value="{{ $siswas->id }}" {{ old('nis', $peminjaman->nis ?? '') == $siswas->id ? 'selected' : '' }}>
-                    {{ $siswas->nama_siswa }}
+            @foreach($students as $student)
+                <option value="{{ $student->id }}" {{ old('student_id', $loan->student_id ?? '') == $student->id ? 'selected' : '' }}>
+                    {{ $student->name }}
                 </option>
             @endforeach
         </select>
-        @error('nis')<div>{{ $message }}</div>@enderror
+        @error('student_id')<div>{{ $message }}</div>@enderror
     </div>
 </div>
 
 <div class="form-group">
-    <div>
-        <label for="user_id">User Name <span>*</span></label>
-        <select name="user_id">
-            <option value="">-- Select User --</option>
-            @foreach($users as $u)
-                <option value="{{ $u->id }}" {{ old('user_id', $peminjaman->user_id ?? '') == $u->id ? 'selected' : '' }}>
-                    {{ $u->name }}
-                </option>
-            @endforeach
-        </select>
-        @error('user_id')<div>{{ $message }}</div>@enderror
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="tanggal_pinjam">Loan Date</label>
-    <input type="date" name="tanggal_pinjam" id="tanggal_pinjam" value="{{ old('tanggal_pinjam', isset($peminjaman) ? $peminjaman->tanggal_pinjam->format('Y-m-d') : '') }}">
-</div>
-
-<div class="form-group">
-    <label for="tanggal_kembali">Return Date</label>
-    <input type="date" name="tanggal_kembali" id="tanggal_kembali" value="{{ old('tanggal_kembali', isset($peminjaman) ? $peminjaman->tanggal_kembali->format('Y-m-d') : '') }}">
+    <label for="return_date">Return Date</label>
+    <input type="date" name="return_date" id="return_date" value="{{ old("return_date", isset($loan) ? $loan->return_date->format('Y-m-d') : '') }}">
 </div>
 
 <div class="form-group">
@@ -57,29 +37,29 @@
                             <select name="details[{{ $i }}][book_id]">
                                 <option value="">-- Select Book --</option>
                                 @foreach($books as $b)
-                                    <option value="{{ $b->id }}" {{ ($d['book_id'] ?? '') == $b->id ? 'selected' : '' }}>{{ $b->judul_buku }}</option>
+                                    <option value="{{ $b->id }}" {{ ($d['book_id'] ?? '') == $b->id ? 'selected' : '' }}>{{ $b->title }}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td><input type="number" name="details[{{ $i }}][jumlah]" value="{{ $d['jumlah'] ?? 1 }}" min="1"></td>
+                        <td><input type="number" name="details[{{ $i }}][quantity]" value="{{ $d['quantity'] ?? 1 }}" min="1"></td>
                         <td><button type="button" class="remove-row">Remove</button></td>
                     </tr>
                 @endforeach
             @else
-                @if(isset($peminjaman) && $peminjaman->detail->count())
-                    @foreach($peminjaman->detail as $i => $det)
+                @if(isset($loan) && $loan->details->count())
+                    @foreach($loan->details as $i => $det)
                         <tr>
                             <td>
                                 <select name="details[{{ $i }}][book_id]">
                                     <option value="">-- Select Book --</option>
                                     @foreach($books as $b)
-                                        <option value="{{ $b->id }}" {{ $det->book_id == $b->id ? 'selected' : '' }}>{{ $b->judul_buku }}</option>
+                                        <option value="{{ $b->id }}" {{ $det->book_id == $b->id ? 'selected' : '' }}>{{ $b->title }}</option>
                                     @endforeach
                                 </select>
                                 <input type="hidden" name="details[{{ $i }}][id]" value="{{ $det->id }}">
-                                <input type="hidden" name="details[{{ $i }}][status]" value="{{ $det->status ?? 'dipinjam' }}">
+                                <input type="hidden" name="details[{{ $i }}][status]" value="{{ $det->status ?? 'borrowed' }}">
                             </td>
-                            <td><input type="number" name="details[{{ $i }}][jumlah]" value="{{ $det->jumlah }}" min="1"></td>
+                            <td><input type="number" name="details[{{ $i }}][quantity]" value="{{ $det->quantity }}" min="1"></td>
                             <td><button type="button" class="remove-row">Remove</button></td>
                         </tr>
                     @endforeach
@@ -89,11 +69,11 @@
                             <select name="details[0][book_id]">
                                 <option value="">-- Select Book --</option>
                                 @foreach($books as $b)
-                                    <option value="{{ $b->id }}">{{ $b->judul_buku }}</option>
+                                    <option value="{{ $b->id }}">{{ $b->title }}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td><input type="number" name="details[0][jumlah]" value="1" min="1"></td>
+                        <td><input type="number" name="details[0][quantity]" value="1" min="1"></td>
                         <td><button type="button" class="remove-row">Remove</button></td>
                     </tr>
                 @endif
@@ -104,7 +84,7 @@
 </div>
 
 <button type="submit" class="btn-submit">Save</button>
-<a href="{{ route('peminjaman.index') }}" class="btn-back">Back</a>
+<a href="{{ route('loan.index') }}" class="btn-back">Back</a>
 
 <script>
 document.addEventListener('click', function(e){
@@ -112,8 +92,8 @@ document.addEventListener('click', function(e){
         const tbody = document.querySelector('#details-table tbody');
         const index = tbody.querySelectorAll('tr').length;
         const tr = document.createElement('tr');
-        const books = `@foreach($books as $b)<option value="{{ $b->id }}">{{ $b->judul_buku }}</option>@endforeach`;
-        tr.innerHTML = `<td><select name="details[${index}][book_id]"><option value="">-- Select Book --</option>${books}</select></td><td><input type="number" name="details[${index}][jumlah]" value="1" min="1"></td><td><button type="button" class="remove-row">Remove</button></td>`;
+        const books = `@foreach($books as $b)<option value="{{ $b->id }}">{{ $b->title }}</option>@endforeach`;
+        tr.innerHTML = `<td><select name="details[${index}][book_id]"><option value="">-- Select Book --</option>${books}</select></td><td><input type="number" name="details[${index}][quantity]" value="1" min="1"></td><td><button type="button" class="remove-row">Remove</button></td>`;
         tbody.appendChild(tr);
     }
 

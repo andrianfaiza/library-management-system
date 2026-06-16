@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,10 +11,10 @@
     <div class="container1">
         <div class="form-container">
             <h2>Add Shelf</h2>
-            <form action="{{ route('rak.store') }}" method="POST">
+            <form action="{{ route('rack.store') }}" method="POST">
                 @csrf
                 
-                @include('rak._form')
+                @include('rack._form')
             </form>
         </div>
     </div>

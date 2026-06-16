@@ -1,20 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Student</title>
+    <title>Add Loan</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
     <div class="container1">
         <div class="form-container">
-            <h2>Add Student</h2>
-            <form action="{{ route('siswa.store') }}" method="POST">
+            <h2>Add Loan</h2>
+            <form action="{{ route('loan.store') }}" method="POST">
                 @csrf
                 
-                @include('siswa._form')
+                @include('loan._form')
             </form>
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Book Returns')
 @section('content')
 <div class="data">
@@ -16,16 +16,17 @@
                 </tr>
             </thead>
             <tbody>
-                 @foreach ($pengembalian as $pengembalians)
+                 @foreach ($returns as $return)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$pengembalians->peminjaman_id}}</td>
-                            <td>{{ isset($pengembalians->tanggal_dikembalikan) ? $pengembalians->tanggal_dikembalikan->format('Y-m-d') : '' }}</td>
-                            <td>Rp{{$pengembalians->denda}}</td>
-                            <td>{{ $pengembalians->users->name}}</td>
+                            <td>{{$return->loan_id}}</td>
+                            <td>{{ isset($return->return_date) ? $return->return_date->format('Y-m-d') : '' }}</td>
+                            <td>Rp{{$return->fine}}</td>
+                            <td>{{ $return->user->name}}</td>
                         </tr>
                     @endforeach
             </tbody>
         </table>
     </div>
 </div>
+

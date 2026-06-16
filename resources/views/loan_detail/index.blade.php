@@ -1,8 +1,8 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Loan Details')
 @section('content')
 <div class="data">
-    <a href="{{ url()->previous() }}" class="return">
+    <a href="{{ route('loan.index') }}" class="return">
         <i class="fas fa-arrow-left mr-2"></i> Return
     </a>
     <h2>Book Loan Details</h2>
@@ -19,17 +19,17 @@
                 </tr>
             </thead>
             <tbody>
-                 @foreach ($detail as $details)
+                 @foreach ($details as $detail)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$details->peminjaman_id}}</td>
-                            <td>{{ $details->book->judul_buku ?? $details->book_id }}</td>
-                            <td>{{$details->jumlah}}</td>
+                            <td>{{$detail->loan_id}}</td>
+                            <td>{{ $detail->book->title ?? $detail->book_id }}</td>
+                            <td>{{$detail->quantity}}</td>
                             <td class='table-action'>
-                                @if(($details->status ?? 'dipinjam') === 'dikembalikan')
+                                @if(($detail->status ?? 'borrowed') === 'done')
                                     <span class="badge">Returned</span>
                                 @else
-                                    <form action="{{ route('detail.kembalikan', $details->id) }}" method="POST" style="display:inline">
+                                    <form action="{{ route('loan-detail.return', $detail->id) }}" method="POST" style="display:inline">
                                         @csrf
                                         <button type="submit" class="btn-dikembalikan" onclick="return confirm('Return this book?')">Return</button>
                                     </form>

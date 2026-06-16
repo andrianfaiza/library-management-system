@@ -1,13 +1,15 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Shelf List')
 @section('content')
 <div class="data">
     <div class="header">
         <h2>Shelf List</h2>
-        <a href="{{ route('rak.create') }}" class="btn-tambah">+ Add Shelf</a>
+        @if(auth()->user()->hasRole('admin'))
+        <a href="{{ route('rack.create') }}" class="btn-tambah">+ Add Shelf</a>
+        @endif
     </div>
     <div class="search-group">
-        <form method="GET" action="{{route('rak.index')}}">
+        <form method="GET" action="{{route('rack.index')}}">
             <input type="text" name="search" class="search"  placeholder="Search" value="{{ request('search') }}">
             <button type="submit" class="btn-search">🔍 Search</button>
         </form>
@@ -20,24 +22,28 @@
                     <td>Shelf Name</td>
                     <td>Location</td>
                     <td>Capacity</td>
+                    @if(auth()->user()->hasRole('admin'))
                     <td>Actions</td>
+                    @endif
                 </tr>
             </thead>
             <tbody>
-                 @foreach ($rak as $raks)
+                 @foreach ($racks as $rack)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$raks->nama_rak}}</td>
-                            <td>{{$raks->lokasi}}</td>
-                            <td>{{$raks->kapasitas}}</td>
+                            <td>{{$rack->name}}</td>
+                            <td>{{$rack->location}}</td>
+                            <td>{{$rack->capacity}}</td>
+                            @if(auth()->user()->hasRole('admin'))
                             <td class="table-action">
-                                <a class="btn-edit" href="{{ route('rak.edit', $raks->id) }}"><i class="fas fa-edit mr-1"></i></a>
-                                <form action="{{ route('rak.destroy', $raks->id) }}" method="POST" style="display:inline">
+                                <a class="btn-edit" href="{{ route('rack.edit', $rack->id) }}"><i class="fas fa-edit mr-1"></i></a>
+                                <form action="{{ route('rack.destroy', $rack->id) }}" method="POST" style="display:inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn-hapus" onclick="return confirm('Are you sure you want to delete this record?');"><i class="fas fa-trash mr-1"></i></button>
                                 </form>
                             </td>
+                            @endif
                         </tr>
                     @endforeach
             </tbody>

@@ -17,7 +17,12 @@
             </div>
             <ul>
                 <li>
-                    <a href="/dashboard" class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+                    @if(auth()->user()->hasRole('admin'))
+                    <a href="{{route('admin.dashboard')}}" class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+                    @endif
+                    @if(auth()->user()->hasRole('staff'))
+                    <a href="{{route('staff.dashboard')}}" class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+                    @endif
                         <i class="fas fa-chart-pie"></i> Dashboard
                     </a>
                 </li>
@@ -27,22 +32,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('rak.index')}}" class="{{ Request::is('rak*') ? 'active' : '' }}">
+                    <a href="{{ route('rack.index')}}" class="{{ Request::is('rack*') ? 'active' : '' }}">
                         <i class="fas fa-box-archive"></i> Shelves
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('siswa.index')}}" class="{{ Request::is('siswa*') ? 'active' : '' }}">
+                    <a href="{{ route('student.index')}}" class="{{ Request::is('student*') ? 'active' : '' }}">
                         <i class="fas fa-user-graduate"></i> Students
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('peminjaman.index')}}" class="{{ Request::is('peminjaman*') || Request::is('detail*') ? 'active' : '' }}">
+                    <a href="{{ route('loan.index')}}" class="{{ Request::is('loan*') || Request::is('loan-detail*') ? 'active' : '' }}">
                         <i class="fas fa-exchange-alt"></i> Book Loans
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('pengembalian.index')}}" class="{{ Request::is('pengembalian*') ? 'active' : '' }}">
+                    <a href="{{ route('book-return.index')}}" class="{{ Request::is('book-return*') ? 'active' : '' }}">
                         <i class="fas fa-history"></i> Returns
                     </a>
                 </li>
@@ -50,8 +55,16 @@
         </div>
         <div class="content">
             <div class="dashboard">
-                <p><i class="fas fa-graduation-cap text-indigo-500"></i> Library Management System | Admin</p>
-                <form method="POST" action="/logout" style="display: inline;">
+                <p><i class="fas fa-graduation-cap text-indigo-500"></i> Library Management System | 
+                @role('admin')
+                    Admin
+                @endrole
+
+                @role('staff')
+                    Staff
+                @endrole
+                </p>
+                <form method="POST" action="{{route('logout')}}" style="display: inline;">
                     @csrf
                     <button type="submit" class="out"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </form>

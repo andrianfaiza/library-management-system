@@ -4,46 +4,46 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="judul_buku">Book Title</label>
-                    <input type="text" id="judul_buku" name="judul_buku" placeholder="Enter book title" required value="{{ old('judul_buku', $book->judul_buku ?? '') }}">
+                    <label for="title">Book Title</label>
+                    <input type="text" id="title" name="title" placeholder="Enter book title" required value="{{ old('title', $book->title ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="penerbit">Publisher</label>
-                    <input type="text" id="penerbit" name="penerbit" placeholder="Enter publisher" required value="{{ old('penerbit', $book->penerbit ?? '') }}">
+                    <label for="publisher">Publisher</label>
+                    <input type="text" id="publisher" name="publisher" placeholder="Enter publisher" required value="{{ old('publisher', $book->publisher ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="tahun_terbit">Publication Year</label>
-                    <input type="text" id="tahun_terbit" name="tahun_terbit" placeholder="Enter publication year" required value="{{ old('tahun_terbit', $book->tahun_terbit ?? '') }}">
+                    <label for="publication_year">Publication Year</label>
+                    <input type="text" id="publication_year" name="publication_year" placeholder="Enter publication year" required value="{{ old('publication_year', $book->publication_year ?? '') }}">
                 </div>
 
                 <div class="form-group">
-                    <label for="pengarang">Author</label>
-                    <input type="text" id="pengarang" name="pengarang" placeholder="Enter author" required value="{{ old('pengarang', $book->pengarang ?? '') }}">
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author" placeholder="Enter author" required value="{{ old('author', $book->author ?? '') }}">
                 </div>
 
                 <div class="form-group">
                     <div>
-                        <label for="rak_id">Shelf <span>*</span></label>
-                        <select name="rak_id">
+                        <label for="rack_id">Shelf <span>*</span></label>
+                        <select name="rack_id">
                                     <option value="">-- Select Shelf --</option>
-                                    @foreach($rak as $raks)
-                                        <option value="{{ $raks->id }}"
-                                            {{ old('rak_id', $book->rak_id ?? '') == $raks->id ? 'selected' : '' }}>
-                                            {{ $raks->nama_rak }}
+                                    @foreach($racks as $rack)
+                                        <option value="{{ $rack->id }}"
+                                            {{ old('rack_id', $book->rack_id ?? '') == $rack->id ? 'selected' : '' }}>
+                                            {{ $rack->name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('rak_id')
+                                @error('rack_id')
                                     <div>{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
                 <div class="form-group">
-                    <label for="jumlah">Quantity</label>
-                    <input type="number" id="jumlah" name="jumlah" placeholder="Enter quantity" value="{{ old('jumlah', $book->jumlah ?? '') }}" required>
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" value="{{ old('quantity', $book->quantity ?? '') }}" required>
                 </div>
 
                 <button type="submit" class="btn-submit">Save</button>
