@@ -4,15 +4,28 @@ A Laravel-based web application to manage library data such as books, shelves, s
 All features are protected and can only be accessed after login.
 
 ## Default Login
-- Email: `admin@gmail.com`
-- Password: `123`
+- Admin :
+
+email = 'admin@gmail.com',
+Password = 'password'
+
+- Staff :
+
+email = 'staff@gmail.com',
+Password = 'password'
+
+- User :
+
+email = 'user@gmail.com',
+Password = 'password'
 
 ## Setup & Run
 
 1. Clone the project
 
-git clone https://github.com/username/app-perpus.git 
-cd app-perpus
+```git clone https://github.com/andrianfaiza/library-management-system.git```
+
+```cd library-management-system```
 
 2. Install dependencies
 
@@ -24,7 +37,7 @@ cp .env.example .env
 
 4. Configure database in `.env`
 
-DB_DATABASE=app-perpus 
+DB_DATABASE=library-app
 DB_USERNAME=root 
 DB_PASSWORD=
 
