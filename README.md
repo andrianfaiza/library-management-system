@@ -5,54 +5,55 @@ All features are protected and can only be accessed after login.
 
 ## Default Login
 - Admin :
-
-email = 'admin@gmail.com',
-Password = 'password'
+    
+    email = 'admin@gmail.com' |
+    Password = 'password'
 
 - Staff :
 
-email = 'staff@gmail.com',
-Password = 'password'
+    email = 'staff@gmail.com' |
+    Password = 'password'
 
 - User :
 
-email = 'user@gmail.com',
-Password = 'password'
+    email = 'user@gmail.com' |
+    Password = 'password'
 
 ## Setup & Run
 
 1. Clone the project
 
-```git clone https://github.com/andrianfaiza/library-management-system.git```
+    ```git clone https://github.com/andrianfaiza/library-management-system.git```
 
-<<<<<<< HEAD
-```cd library-management-system```
-=======
-```cd app-perpus```
->>>>>>> e18ac7e39a8184160ef58dbdcd8002b372b3e9df
+    ```cd library-management-system```
 
-2. Install dependencies
+    ```cd app-perpus```
 
-composer install
+2. Seeder Migration
+    ```php artisan db:seed```
 
-3. Copy environment file
+3. Install dependencies
 
-cp .env.example .env
+    composer install
 
-4. Configure database in `.env`
+4. Copy environment file
 
-DB_DATABASE=library-app
-DB_USERNAME=root 
-DB_PASSWORD=
+    cp .env.example .env
 
-5. Generate application key
+5. Configure database in `.env`
 
-php artisan key:generate
+    DB_DATABASE=library-app
+    DB_USERNAME=root 
+    DB_PASSWORD=
 
-6. Run the server
+6. Generate application key
 
-php artisan serve
+    php artisan key:generate
 
-Open in browser:
+7. Run the server
 
-http://127.0.0.1:8000
+    php artisan serve
+    
+    Open in browser:
+    
+    http://127.0.0.1:8000
