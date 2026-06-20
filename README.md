@@ -63,7 +63,7 @@ Before getting started, make sure you have installed:
 
 ```bash
 git clone https://github.com/andrianfaiza/library-management-system.git
-cd app-perpus
+cd library-management-system
 ```
 
 ### 2. Install Dependencies
